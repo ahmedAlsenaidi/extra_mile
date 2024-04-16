@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "996414083016",
+    "project_id": "extra-mile-b24ca",
+    "storage_bucket": "extra-mile-b24ca.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:996414083016:android:1f73703ff955dda68f3afd",
+        "android_client_info": {
+          "package_name": "com.example.extra_mile"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7oNTooQlTxftskHfI9AtJTAurrGSlnXI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
