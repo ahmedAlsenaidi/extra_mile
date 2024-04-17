@@ -1,6 +1,9 @@
-import 'package:extra_mile/Screens/LogIn.dart';
+import 'package:extra_mile/Data/BranchModel.dart';
+
+import '../Screens/LogIn.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import '../Data/BranchModel.dart';
 
 import 'HomePage.dart';
 
@@ -15,7 +18,7 @@ class MainPage extends StatelessWidget {
         builder: (context,snapshot){
           if (snapshot.hasData){
 
-            return const HomePage();
+            return HomePage(onUpdateBranch: (Branch, bool) {});
 
           }else{
             return const Login();

@@ -12,13 +12,13 @@ dependencies:
   firebase_core: ^2.25.4
   firebase_database: ^10.4.6
   firebase_auth: ^4.19.2
-#  gap: ^3.0.1
-#  fluentui_icons: ^1.0.0
-#  flutter_local_notifications: ^17.0.1
-#  google_maps_flutter: ^2.1.1
-#  url_launcher: ^6.0.12
-#  android_intent: ^2.0.2
-#  flutter_rating_bar: ^4.0.0
+  gap: ^3.0.1
+  fluentui_icons: ^1.0.0
+  flutter_local_notifications: ^17.0.1
+  google_maps_flutter: ^2.1.1
+  url_launcher: ^6.0.12
+  android_intent: ^2.0.2
+  flutter_rating_bar: ^4.0.0
 
 dev_dependencies:
   flutter_test:
@@ -27,3 +27,5 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/images/
