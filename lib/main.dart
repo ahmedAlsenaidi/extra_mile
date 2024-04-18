@@ -13,14 +13,14 @@ Future<void> main() async {
   await Firebase.initializeApp();
   FirebaseDatabase.instance.setPersistenceEnabled(true);
 
-  // const AndroidInitializationSettings initializationSettingsAndroid =
-  // AndroidInitializationSettings('@mipmap/ic_launcher');
-  //
-  // const InitializationSettings initializationSettings =
-  // InitializationSettings(android: initializationSettingsAndroid,);
-  //
-  // await flutterLocalNotificationsPlugin.initialize(initializationSettings);
-  //DatabaseHelper.writeMessagesToFirebace();
+  const AndroidInitializationSettings initializationSettingsAndroid =
+  AndroidInitializationSettings('@mipmap/ic_launcher');
+
+  const InitializationSettings initializationSettings =
+  InitializationSettings(android: initializationSettingsAndroid,);
+
+  await flutterLocalNotificationsPlugin.initialize(initializationSettings);
+  DatabaseHelper.writeMessagesToFirebace();
   runApp(const MainApp());
 }
 

@@ -16,7 +16,7 @@ class BranchData{
     //image = json["image"];
     name = json["name"];
     //place = json["place"];
-    phoneNumber = checkInteger(json["phone_number"]);
+    phoneNumber = checkInteger(json["phoneNumber"]);
     latitude = checkDouble(json['latitude']);
     longitude = checkDouble(json['longitude']);
     starRating = checkDouble(json['star_rating']);
@@ -27,7 +27,7 @@ class BranchData{
   Map<String, dynamic> toJson() {
     return {
       "name": name,
-      "phone_number": phoneNumber,
+      "phoneNumber": phoneNumber,
       'latitude' : latitude,
       'longitude' : longitude,
       'star_rating': starRating,

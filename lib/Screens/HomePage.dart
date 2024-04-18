@@ -1,58 +1,9 @@
-// import 'package:extra_mile/Data/Data.dart';
-// import 'package:firebase_auth/firebase_auth.dart';
-// import 'package:flutter/material.dart';
-//
-// import '../Data/DatabaseHelper.dart';
-//
-// class HomePage extends StatelessWidget {
-//   const HomePage({Key? key}) : super(key: key);
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: Center(
-//         child: Column(
-//           mainAxisAlignment: MainAxisAlignment.center,
-//           children: [
-//             const Text('Signed in'),
-//             MaterialButton(
-//               onPressed: () {
-//                 FirebaseAuth.instance.signOut();
-//
-//                 // DatabaseHelper.writeMessagesToFirebace();
-//                 // if (branchList.isNotEmpty){
-//                 //   DatabaseHelper.createFirebaseRealtimeDBWithUniqueIDs("Branches", branchList);
-//                 // } else {
-//                 //   print("Data cannot therefore be saved into Firebases");
-//                 // }
-//               },
-//               child: const Text('Sign Out'),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-// import 'package:fluentui_icons/fluentui_icons.dart' show FluentSystemIcons;
 import 'package:flutter/material.dart';
 import '../Data/BranchModel.dart';
-import "../ReusableCode/BranchDecoration.dart";
 import 'AboutUs.dart';
 import 'BranchesCreatUpdate.dart';
-import 'Cart.dart';
 import 'Home.dart';
 
-//import 'package:firebase_database/firebase_database.dart';
-// import 'package:oman_castles_2/MyImageList.dart';
-// import 'package:oman_castles_2/MyTextScreen3.dart';
-// import 'package:oman_castles_2/MyTextScreen4.dart';
-// import 'package:oman_castles_2/MyTextScreen5.dart';
-// import 'package:oman_castles_2/MyTextScreen6.dart';
-// import 'package:oman_castles_2/data/FirebaseCRUD.dart';
-// import 'package:oman_castles_2/data/castle_model.dart';
-//import 'package:flutter/cupertino.dart';
 
 class HomePage extends StatefulWidget {
   final void Function(Branch, bool) onUpdateBranch;
@@ -65,20 +16,26 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
+
   late List<Widget> _widgetOptions;
 
   @override
   void initState() {
     super.initState();
+    // DatabaseHelper.writeMessagesToFirebace();
+    // if (branchList.isNotEmpty){
+    //   DatabaseHelper.createFirebaseRealtimeDBWithUniqueIDs("Branches", branchList);
+    // } else {
+    //   print("Data cannot therefore be saved into Firebases");
+    // }
     _widgetOptions = <Widget>[
       Home(
         onUpdateBranch: (Branch branch, bool isUpdate) {
           _updateBranch(branch, isUpdate);
         },
       ),
-      // Cart(),
-      AddUpdateBranchDataInToFirebaseScreen(onUpdateBranch: (Branch branch, bool isUpdate) {}),
-      AboutUs(),
+      AddUpdateBranchDataInToFirebaseScreen(onUpdateBranch: (Branch branch, bool isUpdate) {}),//Add page
+      AboutUs(),//About Us
     ];
   }
 
@@ -122,6 +79,7 @@ class _HomePageState extends State<HomePage> {
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: "Home",
+
           ),
           BottomNavigationBarItem(
             // icon: Icon(Icons.shopping_cart_sharp),

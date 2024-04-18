@@ -1,3 +1,4 @@
+import 'package:extra_mile/ReusableCode/AppStyles.dart';
 import 'package:flutter/material.dart';
 import '../data/DatabaseHelper.dart';
 import '../Data/BranchModel.dart';
@@ -28,7 +29,7 @@ class AddUpdateBranchDataInToFirebaseScreen extends StatelessWidget {
     if (isUpdate && branch != null) {
       nameController.text = branch!.branchData!.name ?? "";
       phoneNumberController.text =
-          branch!.branchData!.phoneNumber?.toString() ?? "";
+          branch!.branchData!.phoneNumber.toString() ?? "";
       latitudeController.text =
           branch!.branchData!.latitude?.toString() ?? "";
       longitudeController.text =
@@ -37,12 +38,13 @@ class AddUpdateBranchDataInToFirebaseScreen extends StatelessWidget {
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Firebase Create/Update Demo',
       home: ScaffoldMessenger(
         key: _scaffoldMessengerKey,
         child: Scaffold(
           appBar: AppBar(
-            title: const Text('Update and creat'),
+
+            title:  Center(child: Text('Create/Update',style: AppStyles.Gray,)),
+            backgroundColor: AppStyles.Black1C,
           ),
           body: Padding(
             padding: const EdgeInsets.all(16.0),

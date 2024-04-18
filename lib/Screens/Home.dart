@@ -1,14 +1,12 @@
 import 'package:extra_mile/Data/BranchModel.dart';
+import 'package:extra_mile/ReusableCode/AppStyles.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:gap/gap.dart';
 import '../main.dart';
 import 'map.dart';
 import '../ReusableCode/Helper.dart';
-// import 'reusableCode/AppRowData.dart';
 import 'package:flutter/material.dart';
 import '../Data/DatabaseHelper.dart';
 import '../ReusableCode/BranchDecoration.dart';
-
 
 class Home extends StatefulWidget {
   final Function(Branch,bool) onUpdateBranch;
@@ -128,25 +126,17 @@ class _HomeState extends State<Home> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color.fromRGBO(234, 223, 180, 100),//rgb(234, 223, 180)
-        title: const Center(child: Text("Extra Mile")),
+        backgroundColor: AppStyles.Black1C,
+        title: Center(child: Text("Extra Mile",style: AppStyles.Gray,)),
       ),
 
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: ListView(
           children:[
-            const Text('Signed in'),
             MaterialButton(
               onPressed: () {
                 FirebaseAuth.instance.signOut();
-
-                // DatabaseHelper.writeMessagesToFirebace();
-                // if (branchList.isNotEmpty){
-                //   DatabaseHelper.createFirebaseRealtimeDBWithUniqueIDs("Branches", branchList);
-                // } else {
-                //   print("Data cannot therefore be saved into Firebases");
-                // }
               },
               child: const Text('Sign Out'),
             ),
@@ -209,13 +199,7 @@ class _HomeState extends State<Home> {
                 //   ],
                 // ),
                 // const Gap(20),
-                const Text(
-                  "Branch",
-                  style: TextStyle(
-                    fontSize: 36,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                Text("Branches", style:TextStyle(fontWeight: FontWeight.bold,color:AppStyles.Black1C,fontSize: 45 ), ),
 
                 SingleChildScrollView(
                   scrollDirection: Axis.vertical,

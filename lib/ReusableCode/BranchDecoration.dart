@@ -1,3 +1,4 @@
+import 'package:extra_mile/ReusableCode/AppStyles.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -43,7 +44,7 @@ class BranchDecoration extends StatelessWidget {
             height: 125,
             width: 0.90 * MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
-              color: const Color.fromRGBO(155, 176, 193, 100),
+              color: AppStyles.TealC,
               borderRadius: BorderRadius.circular(10),
             ),
             child: Row(
@@ -58,7 +59,7 @@ class BranchDecoration extends StatelessWidget {
                           width: 200,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
-                            color: const Color.fromRGBO(234, 223, 180, 100),
+                            color:AppStyles.GrayC,
                           ),
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
@@ -73,7 +74,7 @@ class BranchDecoration extends StatelessWidget {
                                   children: [
                                     Text(
                                       "Location:",
-                                      style: AppStyles.headlineStyle2,
+                                      style: TextStyle(color: AppStyles.Black1C),
                                     ),
                                     // Text(
                                     //   "Place:",
@@ -86,7 +87,7 @@ class BranchDecoration extends StatelessWidget {
                                   children: [
                                     Text(
                                       branch.branchData!.name.toString(),
-                                      style: AppStyles.headlineStyle2,
+                                      style: TextStyle(color: AppStyles.Black1C),
                                     ),
                                     // Text(
                                     //   branch.branchData!.phoneNumber.toString(),
@@ -138,9 +139,9 @@ class BranchDecoration extends StatelessWidget {
                       Positioned(bottom: 0,
                         left: 0,
                         child:IconButton(
-                          icon: const Icon(
+                          icon:  Icon(
                               Icons.map,
-                            color: const Color.fromRGBO(30,3,66, 100),
+                            color: AppStyles.Black1C,
                           ), onPressed: ()  => onShowMap(branch),
                         ),
                       ),
@@ -178,7 +179,7 @@ class BranchDecoration extends StatelessWidget {
                       width: 100,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15),
-                        color: Colors.red,
+                        color: AppStyles.GrayC,
                         image: const DecorationImage(
                           fit: BoxFit.cover,
                           image: AssetImage(
