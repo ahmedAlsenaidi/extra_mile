@@ -21,7 +21,6 @@ class BranchData{
     longitude = checkDouble(json['longitude']);
     starRating = checkDouble(json['star_rating']);
 
-    //back to slides
   }
 
   Map<String, dynamic> toJson() {

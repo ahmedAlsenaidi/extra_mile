@@ -29,12 +29,13 @@ class _HomePageState extends State<HomePage> {
     //   print("Data cannot therefore be saved into Firebases");
     // }
     _widgetOptions = <Widget>[
-      Home(
-        onUpdateBranch: (Branch branch, bool isUpdate) {
+      Home(onUpdateBranch: (Branch branch, bool isUpdate) {
           _updateBranch(branch, isUpdate);
         },
       ),
-      AddUpdateBranchDataInToFirebaseScreen(onUpdateBranch: (Branch branch, bool isUpdate) {}),//Add page
+      AddUpdateBranchDataInToFirebaseScreen(
+          onUpdateBranch:(
+              Branch branch, bool isUpdate) {}),//Add page
       AboutUs(),//About Us
     ];
   }
@@ -82,8 +83,6 @@ class _HomePageState extends State<HomePage> {
 
           ),
           BottomNavigationBarItem(
-            // icon: Icon(Icons.shopping_cart_sharp),
-            // label: "Cart",
             icon: Icon(Icons.add),
             label: "Add",
           ),

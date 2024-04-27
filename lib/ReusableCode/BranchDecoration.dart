@@ -72,14 +72,7 @@ class BranchDecoration extends StatelessWidget {
                                 Column(
                                   // crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
-                                      "Location:",
-                                      style: TextStyle(color: AppStyles.Black1C),
-                                    ),
-                                    // Text(
-                                    //   "Place:",
-                                    //   style: AppStyles.headlineStyle1,
-                                    // ),
+                                    Text("Location:", style: TextStyle(color: AppStyles.Black1C),),
                                   ],
                                 ),
                                 Column(

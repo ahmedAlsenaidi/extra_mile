@@ -3,13 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import '../Data/BranchModel.dart';
-import '../List.dart';
 import '../ReuseAbleWidgets/ImageDecoration.dart';
 import '../data/DatabaseHelper.dart';
 import '../reusableCode/AppStyles.dart';
 import 'BranchesCreatUpdate.dart';
-import 'HomePage.dart';
-
 
 class detail extends StatefulWidget {
   final Branch branch;
@@ -66,14 +63,13 @@ class _detailState extends State<detail> {
             //       fontWeight: FontWeight.bold,
             //       color: Colors.brown),
             // ),
-            // Text(
-            //   'Ticket Price: \$${widget.branch.branchData?.ticketPrice?.toStringAsFixed(2) ?? 'N/A'}',
-            //   style: AppStyles.headlineStyle2,
-            // ),
+            Text('Phone Number: ${widget.branch.branchData?.phoneNumber?.toString() ?? 'N/A'}',
+              style: AppStyles.Black2,
+            ),
             const SizedBox(height: 20),
             Text(
               'Select Ticket Quantity:',
-              style: AppStyles.headlineStyle2,
+
             ),
             Slider(
               value: _ticketQuantity.toDouble(),
@@ -88,10 +84,7 @@ class _detailState extends State<detail> {
               },
             ),
             const SizedBox(height: 20),
-            Text(
-              'Running Cost: OMR ${_runningCost.toStringAsFixed(2)}',
-              style: AppStyles.headlineStyle1,
-            ),
+            Text('Running Cost: OMR ${_runningCost.toStringAsFixed(2)}',),
             const SizedBox(height: 20),
 
             // Add RatingBar here
@@ -127,37 +120,20 @@ class _detailState extends State<detail> {
               ),
             ),
             const SizedBox(height: 10),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(Icons.home),
-                  const SizedBox(width: 8),
-                  Text("Back to Main", style: AppStyles.headlineStyle2,)
-                ],
-              ),
-            ),
           ],
         ),
       ),
     );
   }
-
   _deleteCastle() {
-    // FirebaseDatabase.instance.ref("castles").child(widget.castle.key!).remove();
-
     if (widget.branch.key != null && widget.branch.branchData?.name != null) {
-      String castleName = widget.branch.branchData!.name!;
+      String branchName = widget.branch.branchData!.name!;
       showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
             title: const Text('Confirm Deletion'),
-            content:
-            Text('Are you sure you want to delete the castle $castleName?'),
+            content: Text('Are you sure you want to delete the branch $branchName?'),
             actions: <Widget>[
               TextButton(
                 child: const Text('Cancel'),
@@ -170,15 +146,10 @@ class _detailState extends State<detail> {
                   DatabaseHelper.deleteBranch(widget.branch.key!);
                   Navigator.of(context).pop(); // Close the dialog
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('$castleName branch deleted')),
-
+                    SnackBar(content: Text('$branchName branch deleted')),
                   );
-
-                  Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(builder: (context) =>  HomePage(onUpdateBranch: (Branch, bool) {})),
-                        (Route<dynamic> route) => false,
-                  );
+                  // Navigate back to the homepage
+                  Navigator.pop(context);
                 },
                 child: const Text('Delete'),
               ),
@@ -189,12 +160,55 @@ class _detailState extends State<detail> {
     }
   }
 
-
+  // _deleteCastle() {
+  //   // FirebaseDatabase.instance.ref("castles").child(widget.castle.key!).remove();
+  //
+  //   if (widget.branch.key != null && widget.branch.branchData?.name != null) {
+  //     String castleName = widget.branch.branchData!.name!;
+  //     showDialog(
+  //       context: context,
+  //       builder: (BuildContext context) {
+  //         return AlertDialog(
+  //           title: const Text('Confirm Deletion'),
+  //           content:
+  //           Text('Are you sure you want to delete the castle $castleName?'),
+  //           actions: <Widget>[
+  //             TextButton(
+  //               child: const Text('Cancel'),
+  //               onPressed: () {
+  //                 Navigator.of(context).pop(); // Close the dialog
+  //               },
+  //             ),
+  //             TextButton(
+  //               onPressed: (){
+  //                 DatabaseHelper.deleteBranch(widget.branch.key!);
+  //                 Navigator.of(context).pop(); // Close the dialog
+  //                 ScaffoldMessenger.of(context).showSnackBar(
+  //                   SnackBar(content: Text('$castleName branch deleted')),
+  //
+  //                 );
+  //
+  //                 Navigator.pushAndRemoveUntil(
+  //                   context,
+  //                   MaterialPageRoute(builder: (context) =>  HomePage(onUpdateBranch: (Branch, bool) {})),
+  //                       (Route<dynamic> route) => false,
+  //                 );
+  //               },
+  //               child: const Text('Delete'),
+  //             ),
+  //           ],
+  //         );
+  //       },
+  //     );
+  //   }
+  // }
   void updateBranch() {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) =>  AddUpdateBranchDataInToFirebaseScreen(isUpdate: true, branch: widget.branch, onUpdateBranch: (building, bool isUpdate) {  },),
+        builder: (context) =>
+            AddUpdateBranchDataInToFirebaseScreen(
+              isUpdate: true, branch: widget.branch, onUpdateBranch: (building, bool isUpdate) {  },),
       ),
     );
   }

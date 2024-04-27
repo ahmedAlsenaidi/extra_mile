@@ -4,7 +4,6 @@ import '../data/DatabaseHelper.dart';
 import '../Data/BranchModel.dart';
 import 'HomePage.dart';
 
-
 class AddUpdateBranchDataInToFirebaseScreen extends StatelessWidget {
   final Branch? branch;
   final bool isUpdate;

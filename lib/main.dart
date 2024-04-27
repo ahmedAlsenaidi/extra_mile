@@ -20,7 +20,6 @@ Future<void> main() async {
   InitializationSettings(android: initializationSettingsAndroid,);
 
   await flutterLocalNotificationsPlugin.initialize(initializationSettings);
-  DatabaseHelper.writeMessagesToFirebace();
   runApp(const MainApp());
 }
 
@@ -29,20 +28,8 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        title: 'Your App Title',
-        theme: ThemeData(
-        // Define the primary color for your app
-        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.blue).copyWith(background: Colors.white), // Change this to your desired background color
-        // Define other theme properties as needed
-        // For example: textTheme, accentColor, etc.
-        ),
-      // home: Scaffold(
-      //   body: Center(
-      //     child: Text('Hello World!'),
-      //   ),
-      // ),
-      home:const MainPage(),
+    return const MaterialApp(
+        home:MainPage(),
         debugShowCheckedModeBanner: false
     );
   }
