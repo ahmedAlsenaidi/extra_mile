@@ -19,6 +19,11 @@ dependencies:
   url_launcher: ^6.0.12
   android_intent: ^2.0.2
   flutter_rating_bar: ^4.0.0
+  google_fonts: ^6.2.1
+  flutter_launcher_icons: ^0.13.1
+  cloud_firestore: ^4.17.0
+
+
 
 dev_dependencies:
   flutter_test:
@@ -29,3 +34,8 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/
+flutter_icons:
+  android: "launcher_icon"
+  iso: true
+  image_path: "assets/images/extra-mile-logo.png"
+  min_sdk_androide:

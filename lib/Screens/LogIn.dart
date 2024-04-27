@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../ReusableCode/AppStyles.dart';
 import 'SignUp.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -17,7 +18,7 @@ class _MyWidgetState extends State<Login> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
-  Future signIn() async{
+  Future signIn() async {
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: _emailController.text.trim(),
@@ -45,94 +46,140 @@ class _MyWidgetState extends State<Login> {
       backgroundColor: Colors.white,
       body: Center(
         child: SingleChildScrollView(
-          child: Container(
-            // color: Colors.purple,
-            width: MediaQuery.of(context).size.width * 0.8,
-            height: MediaQuery.of(context).size.width * 1.2,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: Color.fromRGBO(8, 60, 93, 1)
-            ),
-              child: Column(
-              
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Padding(padding: EdgeInsets.all(12.0)),
-                  Text("Log in", style: AppStyles.headlineStyle1),
-              
-                  const SizedBox(height:6,),
-              
-                  Padding(padding: const EdgeInsets.all(16.0),
-              
-                    child: Form(child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Padding(padding: EdgeInsets.symmetric(vertical: 40.0),),
-                        //email
-                        TextFormField(
-                          controller: _emailController,
-                          decoration: const InputDecoration(
-                            hintText: 'Enter your e-mail',
-                            hintStyle: TextStyle(color: Colors.white),
+          child:
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: EdgeInsets.all(15),
+                  child: Text(
+                    "Extra Mile",
+                    style: AppStyles.Black1.copyWith(
+                        fontSize: 50,
+                        fontWeight: FontWeight
+                            .w900,
+                      fontStyle: FontStyle.italic
+
+                    ), // Change the fontSize to your desired value
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.zero,
+                  child:Container(
+                      // color: Colors.purple,
+                      width: MediaQuery.of(context).size.width * 0.8,
+                      height: MediaQuery.of(context).size.width * 1.2,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: AppStyles.TealC),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Padding(padding: EdgeInsets.all(12.0)),
+                          Text("Log in",
+                              style: AppStyles.Black2.copyWith(
+                                  fontSize: 25, fontWeight: FontWeight.w900)),
+                          const SizedBox(
+                            height: 6,
                           ),
-                          style: AppStyles.headlineStyle2,
-                          validator: (String? value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter some text';
-                            }
-                            return null;
-                          },
-                          textInputAction: TextInputAction.next, // Set textInputAction
-                        ),
-                        //password
-                        const Padding(padding:  EdgeInsets.symmetric(vertical: 16.0),),
-                        TextFormField(
-                          controller: _passwordController,
-                          decoration: const InputDecoration(
-                              hintText: 'Enter your Password',
-                              hintStyle: TextStyle(color: Colors.white)
-                          ),
-                          style: AppStyles.headlineStyle2 ,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter some text';
-                            }
-                            // You can add more specific validation rules here
-                            return null;
-                          },
-                          obscureText: true,
-                          textInputAction: TextInputAction.done, // Set textInputAction
-                        ),
-                        const Padding(padding:  EdgeInsets.symmetric(vertical: 16.0),),
-                        //submit
-                        ElevatedButton(
-                            onPressed: signIn,
-                            child:  Text('Log in', style: AppStyles.headlineStyle3)
-                        ),
-                        const Padding(padding:  EdgeInsets.symmetric(vertical: 16.0),),
-                        TextButton(
-                          onPressed: (){
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => const Signup()),
-                            );
-                          },
-              
-                          child: Text("Don't have Account? Sign up", style: AppStyles.headlineStyle2),
-              
-                        ),
-                        const Padding(padding:  EdgeInsets.symmetric(vertical: 12.0),),
-              
-                      ],
-                    )
+                          Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Form(
+                                child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Padding(
+                                  padding: EdgeInsets.symmetric(vertical: 40.0),
+                                ),
+                                //email
+                                TextFormField(
+                                  controller: _emailController,
+                                  decoration: InputDecoration(
+                                    hintText: 'Enter your e-mail',
+                                    hintStyle: AppStyles.Gray.copyWith(
+                                        fontSize: 15, fontWeight: FontWeight.w600),
+                                  ),
+                                  style: AppStyles.Gray.copyWith(
+                                      fontSize: 15, fontWeight: FontWeight.w600),
+                                  validator: (String? value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Please enter some text';
+                                    }
+                                    return null;
+                                  },
+                                  textInputAction:
+                                      TextInputAction.next, // Set textInputAction
+                                ),
+                                //password
+                                const Padding(
+                                  padding: EdgeInsets.symmetric(vertical: 16.0),
+                                ),
+                                TextFormField(
+                                  controller: _passwordController,
+                                  decoration: InputDecoration(
+                                      hintText: 'Enter your Password',
+                                      hintStyle: AppStyles.Gray.copyWith(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w600)),
+                                  style: AppStyles.Gray.copyWith(
+                                      fontSize: 15, fontWeight: FontWeight.w600),
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Please enter some text';
+                                    }
+                                    // You can add more specific validation rules here
+                                    return null;
+                                  },
+                                  obscureText: true,
+                                  textInputAction:
+                                      TextInputAction.done, // Set textInputAction
+                                ),
+                                const Padding(
+                                  padding: EdgeInsets.symmetric(vertical: 16.0),
+                                ),
+                                //submit
+                                ElevatedButton(
+                                    onPressed: signIn,
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: AppStyles.GrayC,
+                                      /*padding: EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+                                      textStyle: TextStyle(
+                                          fontSize: 30,
+                                          fontWeight: FontWeight.bold)*/
+                                    ),
+                                    child: Text('Log in',
+                                        style:
+                                        AppStyles.Black1.copyWith(fontSize: 15,fontWeight: FontWeight.w600))),
+                                const Padding(
+                                  padding: EdgeInsets.symmetric(vertical: 16.0),
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => const Signup()),
+                                    );
+                                  },
+                                  child: Text("Don't have Account? Sign up",
+                                      style: AppStyles.Black2.copyWith(fontSize: 15,fontWeight: FontWeight.w600)),
+                                ),
+                                const Padding(
+                                  padding: EdgeInsets.symmetric(vertical: 12.0),
+                                ),
+                              ],
+                            )),
+                          )
+                        ],
+                      ),
                     ),
-                  )
-                ],
-              ),
-            ),
+
+                )
+              ],
+
+          ),
         ),
-        ),
-      
+      ),
     );
   }
 }

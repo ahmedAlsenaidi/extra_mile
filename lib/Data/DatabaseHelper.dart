@@ -37,8 +37,7 @@ class DatabaseHelper{
   static Future<void> updatebranchesData(
       String key,
       BranchData branchData,
-      BuildContext context)
-  async {
+      BuildContext context) async {
     DatabaseReference databaseReference = FirebaseDatabase.instance.ref();
     await databaseReference
         .child("Branches")

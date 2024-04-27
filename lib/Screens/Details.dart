@@ -188,13 +188,13 @@ class _detailState extends State<detail> {
       );
     }
   }
-
-
   void updateBranch() {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) =>  AddUpdateBranchDataInToFirebaseScreen(isUpdate: true, branch: widget.branch, onUpdateBranch: (building, bool isUpdate) {  },),
+        builder: (context) =>
+            AddUpdateBranchDataInToFirebaseScreen(
+              isUpdate: true, branch: widget.branch, onUpdateBranch: (building, bool isUpdate) {  },),
       ),
     );
   }
