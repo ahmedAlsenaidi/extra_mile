@@ -147,6 +147,7 @@ class _MyWidgetState extends State<Signup> {
       try {
         await FirebaseFirestore.instance.collection("users").doc(user.uid).set({
           'name': userName,
+          'rating':0.0,
         });
         print('User details added successfully');
       } catch (e) {
@@ -283,6 +284,9 @@ class _MyWidgetState extends State<Signup> {
                                 hintText: 'Enter your Username',
                                 hintStyle: AppStyles.Gray.copyWith(
                                     fontSize: 15, fontWeight: FontWeight.w600),
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(color: AppStyles.Black2C),
+                                ),
                               ),
                               style: AppStyles.Gray.copyWith(
                                   fontSize: 15, fontWeight: FontWeight.w600),
@@ -292,6 +296,7 @@ class _MyWidgetState extends State<Signup> {
                                 }
                                 return null;
                               },
+                              cursorColor: AppStyles.Black2C,
                             ),
                             const Padding(padding: EdgeInsets.symmetric(vertical: 16.0)),
                             TextFormField(
@@ -300,6 +305,9 @@ class _MyWidgetState extends State<Signup> {
                                 hintText: 'Enter your e-mail',
                                 hintStyle: AppStyles.Gray.copyWith(
                                     fontSize: 15, fontWeight: FontWeight.w600),
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(color: AppStyles.Black2C),
+                                ),
                               ),
                               style: AppStyles.Gray.copyWith(
                                   fontSize: 15, fontWeight: FontWeight.w600),
@@ -308,7 +316,9 @@ class _MyWidgetState extends State<Signup> {
                                   return 'Please enter some text';
                                 }
                                 return null;
+
                               },
+                              cursorColor: AppStyles.Black2C,
                             ),
                             const Padding(padding: EdgeInsets.symmetric(vertical: 16.0)),
                             TextFormField(
@@ -317,6 +327,9 @@ class _MyWidgetState extends State<Signup> {
                                 hintText: 'Enter your Password',
                                 hintStyle: AppStyles.Gray.copyWith(
                                     fontSize: 15, fontWeight: FontWeight.w600),
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(color: AppStyles.Black2C),
+                                ),
                               ),
                               style: AppStyles.Gray.copyWith(
                                   fontSize: 15, fontWeight: FontWeight.w600),
@@ -326,19 +339,15 @@ class _MyWidgetState extends State<Signup> {
                                 }
                                 return null;
                               },
+                              obscureText: true,
+                              cursorColor: AppStyles.Black2C,
                             ),
                             const Padding(padding: EdgeInsets.symmetric(vertical: 16.0)),
-                            // ElevatedButton(
-                            //   onPressed: signUp,
-                            //   child: Text('Sign up', style: AppStyles.Black2.copyWith(
-                            //       fontSize: 15, fontWeight: FontWeight.w600)),
-                            // ),
                             ElevatedButton(
                               onPressed: () => signUp(context), // Pass the context here
                               child: Text('Sign up', style: AppStyles.Black2.copyWith(
                                   fontSize: 15, fontWeight: FontWeight.w600)),
                             ),
-
                             const Padding(padding: EdgeInsets.symmetric(vertical: 16.0)),
                             TextButton(
                               onPressed: () {

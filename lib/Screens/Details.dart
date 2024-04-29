@@ -1,157 +1,261 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import '../Data/BranchModel.dart';
 import '../ReuseAbleWidgets/ImageDecoration.dart';
 import '../data/DatabaseHelper.dart';
+import '../main.dart';
 import '../reusableCode/AppStyles.dart';
 import 'BranchesCreatUpdate.dart';
+import 'HomePage.dart';
 
 class detail extends StatefulWidget {
   final Branch branch;
 
-   detail({super.key, required this.branch});
+  detail({super.key, required this.branch});
 
   @override
   State<detail> createState() => _detailState();
 }
 
 class _detailState extends State<detail> {
-  int _ticketQuantity = 1;
-  double _ticketPrice = 0, _runningCost = 0;
+  double _runningCost = 0;
+
+  // Define car services and their prices
+  List<CarService> _carServices = [
+    CarService(name: 'Oil Change', price: 12),
+    CarService(name: 'Tire Rotation', price: 20),
+    CarService(name: 'Brake Service', price: 5),
+    CarService(name: 'Car Wash', price: 1.5),
+  ];
+
+  // Initialize a map to store selected services and their quantities
+  Map<CarService, int> _selectedServices = {};
 
   @override
   Widget build(BuildContext context) {
-    // _ticketPrice = widget.branch.branchData?.ticketPrice ?? 0.0;
-    // _runningCost = _ticketQuantity * _ticketPrice;
+    _runningCost = _calculateTotalCost();
+
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.branch.branchData?.name ?? 'Branch Details'),
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
+            Text("Branch Location: ${widget.branch.branchData?.name ?? 'N/A'} ",
+                style: AppStyles.Black1.copyWith(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w900,
+                  fontStyle: FontStyle.normal,
+                )),
+            const SizedBox(height: 10),
+            Text(
+                'Phone Number: ${widget.branch.branchData?.phoneNumber?.toString() ?? 'N/A'}',
+                style: AppStyles.Black1.copyWith(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w900,
+                  fontStyle: FontStyle.normal,
+                )),
+            const SizedBox(height: 50),
             // Displaying the local image
-            const Box(imgPath:"extra-mile-logo.png" ),//: const SizedBox(height: 200, child: Placeholder()),//widget.branch.branchData?.image != null ?
-            // widget.branch.branchData!.image!
-            const SizedBox(height: 20),
-            Row(
-              children: [
-                Text(
-                  "Name: ",
-                  style: AppStyles.headlineStyle1,
-                ),
-                Text(
-                  widget.branch.branchData?.name ?? 'N/A',
-                  style: AppStyles.headlineStyle2,
-                ),
-              ],
-            ),
+            const Box(imgPath: "extra-mile-logo.png"),
+            const SizedBox(height: 50),
 
-            const SizedBox(height: 10),
+            // Display car services with checkboxes and sliders
             Text(
-              'Place: ${widget.branch.branchData?.phoneNumber ?? 'N/A'}',
-              style: AppStyles.headlineStyle2,
+              'Car Services:',
+              style: AppStyles.Black1.copyWith(
+                fontSize: 30,
+                fontWeight: FontWeight.w900,
+                fontStyle: FontStyle.normal,
+              ),
             ),
-            // Text(
-            //   'Established: ${widget.building.buildingData?. ?? 'N/A'}',
-            //   style: const TextStyle(
-            //       fontSize: 20,
-            //       fontWeight: FontWeight.bold,
-            //       color: Colors.brown),
-            // ),
-            Text('Phone Number: ${widget.branch.branchData?.phoneNumber?.toString() ?? 'N/A'}',
-              style: AppStyles.Black2,
+            SizedBox(height: 10),
+            Column(
+              children: _carServices.map((service) {
+                return Column(
+                  children: [
+                    Row(
+                      children: [
+                        Checkbox(
+                          value: _selectedServices.containsKey(service),
+                          onChanged: (value) {
+                            setState(() {
+                              if (value != null && value) {
+                                _selectedServices[service] = 1;
+                              } else {
+                                _selectedServices.remove(service);
+                              }
+                              _runningCost =
+                                  _calculateTotalCost(); // Update total cost
+                            });
+                          },
+                          checkColor: Colors.white, // Color of the check icon
+                          fillColor:
+                              MaterialStateProperty.resolveWith((states) {
+                            if (states.contains(MaterialState.selected)) {
+                              return AppStyles
+                                  .TealC; // Color when checkbox is checked
+                            }
+                            ; // Color when checkbox is not checked
+                          }),
+                        ),
+                        Text(service.name,
+                            style: AppStyles.Black1.copyWith(
+                              fontSize: 15,
+                              fontWeight: FontWeight.w600,
+                              fontStyle: FontStyle.normal,
+                            )),
+                        Spacer(),
+                        if (service.name == 'Brake Service')
+                          Slider(
+                            value: _selectedServices.containsKey(service)
+                                ? _selectedServices[service]!.toDouble()
+                                : 0,
+                            min: 0,
+                            max: 4,
+                            divisions: 4,
+                            onChanged: (value) {
+                              setState(() {
+                                _selectedServices[service] = value.toInt();
+                                _runningCost =
+                                    _calculateTotalCost(); // Update total cost
+                              });
+                            },
+                            activeColor:
+                                AppStyles.TealC, // Set the color of the slider
+                          ),
+                        if (service.name != 'Brake Service')
+                          Text('${service.price} OMR '),
+                      ],
+                    ),
+                    SizedBox(height: 10),
+                  ],
+                );
+              }).toList(),
             ),
-            const SizedBox(height: 20),
-            Text(
-              'Select Ticket Quantity:',
-
-            ),
-            Slider(
-              value: _ticketQuantity.toDouble(),
-              min: 1,
-              max: 10,
-              divisions: 9,
-              label: _ticketQuantity.round().toString(),
-              onChanged: (double value) {
-                setState(() {
-                  _ticketQuantity = value.toInt();
-                });
-              },
-            ),
-            const SizedBox(height: 20),
-            Text('Running Cost: OMR ${_runningCost.toStringAsFixed(2)}',),
-            const SizedBox(height: 20),
-
-            // Add RatingBar here
-            RatingBar.builder(
-              initialRating: widget.branch.branchData?.starRating ?? 0,
-              minRating: 1,
-              direction: Axis.horizontal,
-              allowHalfRating: true,
-              itemCount: 5,
-              itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
-              itemBuilder: (context, _) =>
-              const Icon(Icons.star, color: Colors.amber),
-              onRatingUpdate: (rating) {
-                // Update the rating in the database
-                widget.branch.branchData?.starRating = rating;
-                DatabaseHelper.updatebranchesData(
-                    widget.branch.key!, widget.branch.branchData!, context);
-              },
-            ),
-            const SizedBox(height: 10),
-            ElevatedButton(onPressed: updateBranch, child: const Text("Update")),
+            // Display total cost
+            Text('Total Cost: OMR ${_runningCost.toStringAsFixed(2)}',
+                style: AppStyles.Black1.copyWith(
+                  fontSize: 25,
+                  fontWeight: FontWeight.w900,
+                  fontStyle: FontStyle.normal,
+                )),
             const SizedBox(height: 10),
             ElevatedButton(
-              onPressed: () => _deleteCastle(),
-              style: ElevatedButton.styleFrom(backgroundColor: Colors.red),/////////////////////
-              child: const Row(
+              onPressed: updateBranch,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppStyles.TealC,
+              ),
+              child: Row(
                 mainAxisSize: MainAxisSize.min, // Use min size for the Row
                 children: [
-                  Icon(Icons.delete), // Delete icon
+                  Icon(
+                    Icons.update,
+                    color: AppStyles.Black1C,
+                  ), // Delete icon
                   SizedBox(width: 8), // Space between icon and text
-                  Text('Delete Branch'), // Button text
+                  Text(
+                    'Update',
+                    style: AppStyles.Black1.copyWith(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600,
+                      fontStyle: FontStyle.normal,
+                    ),
+                  ), // Button text
                 ],
               ),
             ),
             const SizedBox(height: 10),
+            ElevatedButton(
+              onPressed: () => _deleteBranch(),
+              style: ElevatedButton.styleFrom(backgroundColor: AppStyles.TealC),
+              child: Row(
+                mainAxisSize: MainAxisSize.min, // Use min size for the Row
+                children: [
+                  Icon(
+                    Icons.delete,
+                    color: AppStyles.Black1C,
+                  ), // Delete icon
+                  SizedBox(width: 8), // Space between icon and text
+                  Text(
+                    'Delete Branch',
+                    style: AppStyles.Black1.copyWith(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600,
+                      fontStyle: FontStyle.normal,
+                    ),
+                  ), // Button text
+                ],
+              ),
+            ),
+
+            // Existing UI code...
           ],
         ),
       ),
     );
   }
-  _deleteCastle() {
+
+  _deleteBranch() {
     if (widget.branch.key != null && widget.branch.branchData?.name != null) {
       String branchName = widget.branch.branchData!.name!;
       showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: const Text('Confirm Deletion'),
-            content: Text('Are you sure you want to delete the branch $branchName?'),
+            backgroundColor: Colors.white,
+            title: Text('Confirm Deletion',style: AppStyles.Teal.copyWith(
+                fontSize: 20,
+                fontWeight: FontWeight.w900,
+                fontStyle: FontStyle.normal),),
+            content: Text(
+              'Are you sure you want to delete the Branch $branchName?',
+              style: AppStyles.Black1.copyWith(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w600,
+                  fontStyle: FontStyle.normal),
+            ),
             actions: <Widget>[
               TextButton(
-                child: const Text('Cancel'),
+                child: Text(
+                  'Cancel',
+                  style: AppStyles.Teal.copyWith(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600,
+                      fontStyle: FontStyle.normal),
+                ),
                 onPressed: () {
                   Navigator.of(context).pop(); // Close the dialog
                 },
               ),
               TextButton(
-                onPressed: (){
+                onPressed: () async {
+                  // Perform deletion
                   DatabaseHelper.deleteBranch(widget.branch.key!);
+
+                  // Show notification
+                  await _showDeletionNotification(branchName);
+
                   Navigator.of(context).pop(); // Close the dialog
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('$branchName branch deleted')),
+
+                  // Redirect to home page
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            HomePage(onUpdateBranch: (branch, isUpdate) {})),
+                    (Route<dynamic> route) => false,
                   );
-                  // Navigate back to the homepage
-                  Navigator.pop(context);
                 },
-                child: const Text('Delete'),
+                child:  Text('Delete',style: AppStyles.Teal.copyWith(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w600,
+                    fontStyle: FontStyle.normal),),
               ),
             ],
           );
@@ -160,56 +264,50 @@ class _detailState extends State<detail> {
     }
   }
 
-  // _deleteCastle() {
-  //   // FirebaseDatabase.instance.ref("castles").child(widget.castle.key!).remove();
-  //
-  //   if (widget.branch.key != null && widget.branch.branchData?.name != null) {
-  //     String castleName = widget.branch.branchData!.name!;
-  //     showDialog(
-  //       context: context,
-  //       builder: (BuildContext context) {
-  //         return AlertDialog(
-  //           title: const Text('Confirm Deletion'),
-  //           content:
-  //           Text('Are you sure you want to delete the castle $castleName?'),
-  //           actions: <Widget>[
-  //             TextButton(
-  //               child: const Text('Cancel'),
-  //               onPressed: () {
-  //                 Navigator.of(context).pop(); // Close the dialog
-  //               },
-  //             ),
-  //             TextButton(
-  //               onPressed: (){
-  //                 DatabaseHelper.deleteBranch(widget.branch.key!);
-  //                 Navigator.of(context).pop(); // Close the dialog
-  //                 ScaffoldMessenger.of(context).showSnackBar(
-  //                   SnackBar(content: Text('$castleName branch deleted')),
-  //
-  //                 );
-  //
-  //                 Navigator.pushAndRemoveUntil(
-  //                   context,
-  //                   MaterialPageRoute(builder: (context) =>  HomePage(onUpdateBranch: (Branch, bool) {})),
-  //                       (Route<dynamic> route) => false,
-  //                 );
-  //               },
-  //               child: const Text('Delete'),
-  //             ),
-  //           ],
-  //         );
-  //       },
-  //     );
-  //   }
-  // }
+  Future<void> _showDeletionNotification(String branchName) async {
+    const AndroidNotificationDetails androidPlatformChannelSpecifics =
+        AndroidNotificationDetails('deletion_channel', 'Deletion Channel',
+            channelDescription: 'Channel for deletion notifications',
+            importance: Importance.max,
+            priority: Priority.high,
+            ticker: 'deletion_ticker');
+    const NotificationDetails platformChannelSpecifics =
+        NotificationDetails(android: androidPlatformChannelSpecifics);
+    await flutterLocalNotificationsPlugin.show(
+      0,
+      'Branch Deletion',
+      '$branchName branch has been successfully deleted',
+      platformChannelSpecifics,
+      payload: 'branch_deletion',
+    );
+  }
+
   void updateBranch() {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) =>
-            AddUpdateBranchDataInToFirebaseScreen(
-              isUpdate: true, branch: widget.branch, onUpdateBranch: (building, bool isUpdate) {  },),
+        builder: (context) => AddUpdateBranchDataInToFirebaseScreen(
+          isUpdate: true,
+          branch: widget.branch,
+          onUpdateBranch: (building, bool isUpdate) {},
+        ),
       ),
     );
   }
+
+  double _calculateTotalCost() {
+    double totalCost = 0;
+    _selectedServices.forEach((service, quantity) {
+      totalCost += service.price * quantity;
+    });
+    return totalCost;
+  }
+}
+
+// Model class for car service
+class CarService {
+  final String name;
+  final double price;
+
+  CarService({required this.name, required this.price});
 }
