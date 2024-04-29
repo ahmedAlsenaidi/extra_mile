@@ -48,7 +48,7 @@ class _HomePageState extends State<HomePage> {
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: AppStyles.TealC,
         unselectedItemColor: AppStyles.GrayC,
-        selectedFontSize: 20,
+        // selectedFontSize: 15,
         backgroundColor: AppStyles.Black2C,
 
         items: [
