@@ -96,17 +96,18 @@ class _MyWidgetState extends State<Login> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Padding(
-                padding: EdgeInsets.all(15),
-                child: Text(
-                  "Extra Mile",
-                  style: AppStyles.Black1.copyWith(
-                      fontSize: 50,
-                      fontWeight: FontWeight.w900,
-                      fontStyle: FontStyle
-                          .italic), // Change the fontSize to your desired value
-                ),
-              ),
+              Padding(padding: EdgeInsets.zero,child: Image(image: AssetImage("assets/images/extra-mile-logo.png"),)),
+              // Padding(
+              //   padding: EdgeInsets.all(15),
+              //   child: Text(
+              //     "Extra Mile",
+              //     style: AppStyles.Black1.copyWith(
+              //         fontSize: 50,
+              //         fontWeight: FontWeight.w900,
+              //         fontStyle: FontStyle
+              //             .italic), // Change the fontSize to your desired value
+              //   ),
+              // ),
               Padding(
                 padding: EdgeInsets.zero,
                 child: Container(

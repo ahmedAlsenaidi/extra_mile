@@ -247,17 +247,18 @@ class _MyWidgetState extends State<Signup> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Padding(
-                padding: const EdgeInsets.all(15),
-                child: Text(
-                  "Extra Mile",
-                  style: AppStyles.Black2.copyWith(
-                      fontSize: 50,
-                      fontWeight: FontWeight.w900,
-                    fontStyle: FontStyle.italic
-                  ),
-                ),
-              ),
+              Padding(padding: EdgeInsets.zero,child: Image(image: AssetImage("assets/images/extra-mile-logo.png"),)),
+              // Padding(
+              //   padding: const EdgeInsets.all(15),
+              //   child: Text(
+              //     "Extra Mile",
+              //     style: AppStyles.Black2.copyWith(
+              //         fontSize: 50,
+              //         fontWeight: FontWeight.w900,
+              //       fontStyle: FontStyle.italic
+              //     ),
+              //   ),
+              // ),
               Padding(padding: const EdgeInsets.all(15),child: Container(
                 width: MediaQuery.of(context).size.width * 0.8,
                 height: MediaQuery.of(context).size.width * 1.2,
