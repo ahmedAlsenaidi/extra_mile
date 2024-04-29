@@ -1,3 +1,4 @@
+import 'package:extra_mile/ReusableCode/AppStyles.dart';
 import 'package:flutter/material.dart' show Alignment, AssetImage, BlurStyle, Border, BorderRadius, BoxDecoration, BoxFit, BoxShadow, BuildContext, Colors, Container, DecorationImage, Key, MediaQuery, StatelessWidget, Widget;
 
 class Box extends StatelessWidget {
@@ -13,18 +14,18 @@ class Box extends StatelessWidget {
       decoration: BoxDecoration(
 
         borderRadius: BorderRadius.circular(50.0),
-        color: Colors.amber,
+        color: AppStyles.GrayC,
         image: DecorationImage(
           alignment: Alignment.center,
           fit: BoxFit.cover,
           image: AssetImage("assets/images/$imgPath"),
         ),
-        border: Border.all(width: 6, color: Colors.grey),
-        boxShadow: const [
+        border: Border.all(width: 6, color: AppStyles.Black1C),
+        boxShadow:  [
           BoxShadow(
-            color: Colors.black,
-            blurRadius: 4,
-            spreadRadius: 4.5,
+            color: AppStyles.TealC,
+            blurRadius: 20,
+            spreadRadius: 2,
             blurStyle: BlurStyle.normal,
           ),
         ],
