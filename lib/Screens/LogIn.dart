@@ -242,7 +242,25 @@ class _MyWidgetState extends State<Login> {
                     ],
                   ),
                 ),
-              )
+              ),
+              Padding(padding: EdgeInsets.zero,child: Text("""
+              
+              Email: yarab@adminextramail.com
+              Pass: yarabyarab
+              
+              Email: usama@adminextramail.com
+              Pass: usamausama
+              
+              Email: mohammed@adminextramile.com
+              Pass: mohammedmohammed
+              
+              Email: al-salt@adminextramail.com
+              Pass: alsaltalsalt
+              
+              Email: ahmed@adminextramile.com
+              Pass: ahmedahmed
+              """),),
+
             ],
           ),
         ),
