@@ -178,6 +178,7 @@ class _HomeState extends State<Home> {
                   'General Rating: $generalRating',
                   style: TextStyle(fontSize: 20),
                 ),
+                SizedBox(height: 20),
               ],
             ),
           ],
