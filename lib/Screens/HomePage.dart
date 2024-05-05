@@ -22,9 +22,12 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     _widgetOptions = <Widget>[
-      Home(onUpdateBranch: widget.onUpdateBranch), // Pass the onUpdateBranch function to Home widget
+      Home(onUpdateBranch: widget.onUpdateBranch),
+      // Pass the onUpdateBranch function to Home widget
+
+      AddUpdateBranchDataInToFirebaseScreen(
+          onUpdateBranch: widget.onUpdateBranch),
       StaticImgList(),
-      AddUpdateBranchDataInToFirebaseScreen(onUpdateBranch: widget.onUpdateBranch),
       AboutUs(),
     ];
     super.initState();
@@ -48,35 +51,36 @@ class _HomePageState extends State<HomePage> {
       appBar: null,
       body: Center(child: _widgetOptions[_selectedIndex]),
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
         backgroundColor: AppStyles.Black2C,
         selectedItemColor: AppStyles.TealC,
         unselectedItemColor: AppStyles.GrayC,
         selectedFontSize: 15,
-        
-
         items: [
           BottomNavigationBarItem(
-
-            icon: Icon(Icons.home,
+            icon: Icon(
+              Icons.home,
               color: _selectedIndex == 0 ? AppStyles.TealC : AppStyles.GrayC,
             ),
             label: "Home",
           ),
           BottomNavigationBarItem(
-
-            icon: Icon(Icons.car_repair,
+            icon: Icon(
+              Icons.add,
               color: _selectedIndex == 1 ? AppStyles.TealC : AppStyles.GrayC,
-            ),
-            label: "Services",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.add,
-              color: _selectedIndex == 2 ? AppStyles.TealC : AppStyles.GrayC,
             ),
             label: "Add",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.info,
+            icon: Icon(
+              Icons.car_repair,
+              color: _selectedIndex == 2 ? AppStyles.TealC : AppStyles.GrayC,
+            ),
+            label: "Services",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.info,
               color: _selectedIndex == 3 ? AppStyles.TealC : AppStyles.GrayC,
             ),
             label: "About Us",
@@ -84,35 +88,7 @@ class _HomePageState extends State<HomePage> {
         ],
         currentIndex: _selectedIndex,
         onTap: _onTapFunction,
-
       ),
-
     );
   }
 }
-/*
-BottomNavigationBar(
-        backgroundColor: AppStyles.Black1C,
-        currentIndex: _selectedIndex,
-        elevation: 10,
-        onTap: _onTapFunction,
-
-        type: BottomNavigationBarType.fixed,
-        items:  [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home,color: AppStyles.GrayC,),
-            label: "Home",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.add,color: AppStyles.GrayC,),
-            label: "Add",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.info,color: AppStyles.GrayC,),
-            label: "About Us",
-          ),
-        ],
-        selectedLabelStyle: TextStyle(color: AppStyles.GrayC), // Label color when selected
-        unselectedLabelStyle: TextStyle(color: AppStyles.GrayC), // Label color when not selected
-      ),
-* */
