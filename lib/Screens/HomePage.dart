@@ -1,3 +1,4 @@
+import 'package:extra_mile/List.dart';
 import 'package:extra_mile/ReusableCode/AppStyles.dart';
 import 'package:flutter/material.dart';
 import '../Data/BranchModel.dart';
@@ -22,6 +23,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     _widgetOptions = <Widget>[
       Home(onUpdateBranch: widget.onUpdateBranch), // Pass the onUpdateBranch function to Home widget
+      StaticImgList(),
       AddUpdateBranchDataInToFirebaseScreen(onUpdateBranch: widget.onUpdateBranch),
       AboutUs(),
     ];
@@ -46,10 +48,11 @@ class _HomePageState extends State<HomePage> {
       appBar: null,
       body: Center(child: _widgetOptions[_selectedIndex]),
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: AppStyles.Black2C,
         selectedItemColor: AppStyles.TealC,
         unselectedItemColor: AppStyles.GrayC,
-        // selectedFontSize: 15,
-        backgroundColor: AppStyles.Black2C,
+        selectedFontSize: 15,
+        
 
         items: [
           BottomNavigationBarItem(
@@ -60,15 +63,21 @@ class _HomePageState extends State<HomePage> {
             label: "Home",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.add,
+
+            icon: Icon(Icons.car_repair,
               color: _selectedIndex == 1 ? AppStyles.TealC : AppStyles.GrayC,
+            ),
+            label: "Services",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.add,
+              color: _selectedIndex == 2 ? AppStyles.TealC : AppStyles.GrayC,
             ),
             label: "Add",
           ),
           BottomNavigationBarItem(
-            backgroundColor: Colors.green,
             icon: Icon(Icons.info,
-              color: _selectedIndex == 2 ? AppStyles.TealC : AppStyles.GrayC,
+              color: _selectedIndex == 3 ? AppStyles.TealC : AppStyles.GrayC,
             ),
             label: "About Us",
           ),

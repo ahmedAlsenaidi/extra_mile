@@ -148,8 +148,11 @@ class _HomeState extends State<Home> {
       body: Padding(
         padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
         child: ListView(
+          
           children: [
+            
             Column(
+              
               children: [
                 Text(
                   "Branches",

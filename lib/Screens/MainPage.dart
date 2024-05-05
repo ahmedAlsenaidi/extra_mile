@@ -40,7 +40,7 @@ class MainPage extends StatelessWidget {
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            // Check if the logged-in user's email is "ahmed@ahmed.com"
+            // Check if the logged-in user's email is Admin
             User? user = snapshot.data;
             if (user!.email == user!.email) {
               return HomePage(onUpdateBranch: (Branch, bool) {});
